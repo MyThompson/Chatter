@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import './App.css'
 import Main from './Main'
+import SignIn from './SignIn'
 
 class App extends Component {
   constructor() {
@@ -9,17 +10,19 @@ class App extends Component {
 
     this.state = {
       user: {
-        uid: 'sdfs34843560',
-        displayName: 'Davey',
-        email: 'davey@singing.org',
       },
     }
+  }
+
+  handleAuth = (user) => {
+    this.setState({user})
   }
 
   render() {
     return (
       <div className="App">
-        <Main user={this.state.user} />
+      <SignIn handleAuth={this.handleAuth}/>
+        {/* <Main user={this.state.user} /> */}
       </div>
     )
   }
