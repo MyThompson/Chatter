@@ -17,7 +17,7 @@ class Chat extends Component {
             displayName: 'Davey',
             email: 'davey@fretless.com',
           },
-          body: 'Chatting ',
+          body: 'Chatting up a storm, yo!',
         },
 
         {
@@ -27,7 +27,7 @@ class Chat extends Component {
             displayName: 'Dana',
             email: 'dana@fretless.com',
           },
-          body: 'ygkuyfu',
+          body: 'This guy is so annoying. I hate my job.',
         },
       ],
     }
@@ -48,7 +48,10 @@ class Chat extends Component {
 
   render() {
     return (
-      <div className="Chat" style={styles.chat}>
+      <div
+        className="Chat"
+        style={styles}
+      >
         <ChatHeader />
         <MessageList messages={this.state.messages} />
         <MessageForm addMessage={this.addMessage} />
@@ -58,11 +61,9 @@ class Chat extends Component {
 }
 
 const styles = {
-    chat: {
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-      }
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
 }
 
 export default Chat
