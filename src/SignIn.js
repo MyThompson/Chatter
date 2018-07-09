@@ -1,9 +1,24 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite'
 
+import { auth, googleProvider } from './base'
+
 class SignIn extends Component {
   state = {
     email: '',
+  }
+
+  authenticate = () => {
+    auth
+      .signInWithPopup(googleProvider)
+      .then(result => {
+        const { user } = result
+        this.props.handleAuth({
+          displayName: user.displayName,
+          email: user.email,
+          uid: user.uid,
+        })
+      })
   }
 
   handleChange = (ev) => {
@@ -33,7 +48,7 @@ class SignIn extends Component {
             className={css(styles.form)}
             onSubmit={this.handleSubmit}
           >
-            <label
+            {/* <label
               htmlFor="email"
               className={css(styles.label)}
             >
@@ -52,6 +67,14 @@ class SignIn extends Component {
               className={css(styles.button)}
             >
               Sign In
+            </button> */}
+
+            <button
+              type="button"
+              className={css(styles.button)}
+              onClick={this.authenticate}
+            >
+              Sign in with Google
             </button>
           </form>
 
@@ -66,7 +89,6 @@ class SignIn extends Component {
     )
   }
 }
-
 const styles = StyleSheet.create({
   signIn: {
     display: 'flex',
@@ -74,7 +96,6 @@ const styles = StyleSheet.create({
     height: '100vh',
     backgroundColor: '#f6f6f6',
   },
-
   header: {
     backgroundColor: '#fff',
     height: '4rem',
@@ -84,7 +105,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     boxShadow: '0 1px 1px rgba(0,0,0,.1)',
   },
-
   title: {
     color: '#ff3344',
     fontWeight: 400,
@@ -92,7 +112,6 @@ const styles = StyleSheet.create({
     lineHeight: '80px',
     fontSize: '2rem',
   },
-
   main: {
     flex: 1,
     textAlign: 'center',
@@ -101,7 +120,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: '0 auto',
   },
-
   form: {
     width: '40rem',
     height: '15rem',
@@ -110,13 +128,11 @@ const styles = StyleSheet.create({
     marginBottom: '2rem',
     padding: '2rem 0 0',
   },
-
   label: {
     display: 'block',
     textTransform: 'uppercase',
     color: '#999',
   },
-
   input: {
     width: '20rem',
     fontSize: '1.5rem',
@@ -126,16 +142,13 @@ const styles = StyleSheet.create({
     marginBottom: '1rem',
     textAlign: 'center',
     padding: '0.5rem',
-
     ':focus': {
       outline: 0,
     },
   },
-
   h2: {
     fontWeight: 'normal',
   },
-
   button: {
     display: 'block',
     margin: '0 auto',
@@ -147,6 +160,4 @@ const styles = StyleSheet.create({
     width: '20rem',
   },
 })
-
-
 export default SignIn
