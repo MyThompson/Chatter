@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Sidebar from './Sidebar'
 import Chat from './Chat'
+import RoomForm from './RoomForm'
 import base from './base'
 
 class Main extends Component {
@@ -12,6 +13,7 @@ class Main extends Component {
     },
 
     rooms: {},
+    showRoomForm: false,
   }
 
   componentDidMount() {
@@ -46,7 +48,19 @@ class Main extends Component {
     this.setState({ room })
   }
 
+  showRoomForm = () => {
+    this.setState({ showRoomForm: true })
+  }
+
+  hideRoomForm = () => {
+    this.setState({ showRoomForm: false })
+  }
+
   render() {
+    if (this.state.showRoomForm) {
+      return <RoomForm addRoom={this.addRoom} />
+    }
+
     return (
       <div className="Main" style={styles}>
         <Sidebar
