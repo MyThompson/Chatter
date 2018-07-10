@@ -1,12 +1,34 @@
 import React, { Component } from 'react'
 
 class RoomForm extends Component {
+  state = {
+    room: {
+      name: '',
+      description: '',
+    },
+  }
+
+  handleChange = ev => {
+    const room = {...this.state.room}
+    room[ev.target.name] = ev.target.value
+
+    this.setState({ room })
+  }
+
+  handleSubmit = ev => {
+    ev.preventDefault()
+    this.props.addRoom(this.state.room)
+    this.props.hideRoomForm()
+  }
+
   render() {
     return (
       <div className="RoomForm">
         <main>
           <h2>Create a room</h2>
-          <form>
+          <form
+            onSubmit={this.handleSubmit}
+          >
             <p>
               <label htmlFor="name">
                 Room Name
@@ -16,6 +38,8 @@ class RoomForm extends Component {
                 required
                 type="text"
                 name="name"
+                value={this.state.room.name}
+                onChange={this.handleChange}
               />
             </p>
 
@@ -26,9 +50,17 @@ class RoomForm extends Component {
               <input
                 type="text"
                 name="description"
+                value={this.state.room.description}
+                onChange={this.handleChange}
               />
             </p>
             <div>
+              <button
+                type="button"
+                onClick={this.props.hideRoomForm}
+              >
+                Cancel
+              </button>
               <button
                 type="submit"
               >
